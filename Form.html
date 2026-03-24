@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SmartFlow Systems</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0B0F19;
+      color: white;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 80px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #A0A8B8;
+      margin-bottom: 30px;
+    }
+
+    form {
+      background: #111827;
+      padding: 25px;
+      border-radius: 10px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 6px;
+      background: #1F2937;
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #3B82F6;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2563EB;
+    }
+
+    .success {
+      display: none;
+      background: #111827;
+      padding: 25px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .success h2 {
+      color: #22D3EE;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Automate your operations with AI</h1>
+  <p>Capture leads, respond instantly, and never miss an opportunity again.</p>
+
+  <form id="form">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="text" name="number" placeholder="Phone Number" required>
+    <input type="email" name="email" placeholder="Email Address" required>
+    <textarea name="message" placeholder="What do you need help with?" required></textarea>
+    <button type="submit">Get Started</button>
+  </form>
+
+  <div class="success" id="successBox">
+    <h2>You're in.</h2>
+    <p>We’ve received your request. You’ll hear from us shortly.</p>
+  </div>
+
+</div>
+
+<script>
+document.getElementById("form").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+
+  const data = {
+    name: form.name.value,
+    number: form.number.value,
+    email: form.email.value,
+    message: form.message.value,
+    source: "website"
+  };
+
+  await fetch("https://n8n-a2a1.onrender.com/webhook/lead-router", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  form.style.display = "none";
+  document.getElementById("successBox").style.display = "block";
+});
+</script>
+
+</body>
+</html>
